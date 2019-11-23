@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class UserManager(BaseUserManager):
@@ -25,28 +26,28 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    #notification = models.ForeignKey()
+    notification = models.ForeignKey('account.user', on_delete=models.CASCADE, blank=True, null=True)
 
-    nickname = models.CharField(max_length=255, blank=False, null=False)
+    nickname = models.CharField(max_length=255, unique=True)
     email = models.EmailField(max_length=255, unique=True)
-    first_name = models.CharField(max_length=255, blank=False, null=False)
-    last_name = models.CharField(max_length=255, blank=False, null=False)
-    birthdate = models.DateField()
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    birthdate = models.DateField(blank=True, null=True)
 
     # admin
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
-    EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'nickname'
-    REQUIRED_FIELDS = ['first_name', 'email']
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name']
 
     objects = UserManager()
 
     class Meta:
-        verbose_name = "Usuário"
-        verbose_name_plural = "Usuários"
+        verbose_name = "User"
+        verbose_name_plural = "User"
 
     def __str__(self):
-        return self.email
+        return self.nickname
 

@@ -14,7 +14,7 @@ import os
 import environ
 
 # set default values and casting
-env = environ.Env(ALLOWED_HOSTS=(tuple, ['batte-dual.herokuapp.com','localhost']), DEBUG=(bool, False),)
+env = environ.Env(ALLOWED_HOSTS=(tuple, ['localhost']), DEBUG=(bool, False),)
 env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'account',
+    'contrib',
 ]
 
 MIDDLEWARE = [

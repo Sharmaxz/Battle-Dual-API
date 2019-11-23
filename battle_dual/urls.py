@@ -20,13 +20,13 @@ from django.urls import path, include
 from rest_framework.authtoken import views
 
 
-# from account.api import AccountHybridRouter
-# from contrib.router import HybridRouter
-# router = HybridRouter()
-# router.register_router(AccountHybridRouter)
+from account.api import AccountHybridRouter
+from contrib.router import HybridRouter
+router = HybridRouter()
+router.register_router(AccountHybridRouter)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('api/', include((router.urls, 'api'), namespace='api'), name='api-root'),
+    path('api/', include((router.urls, 'api'), namespace='api'), name='api-root'),
     path('api-token-auth/', views.obtain_auth_token),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
