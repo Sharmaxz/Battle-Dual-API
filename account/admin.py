@@ -5,12 +5,12 @@ from account.models import User
 
 
 class MyUserAdmin(UserAdmin):
-    search_fields = ('email', 'nickname', 'first_name', 'date_joined')
+    search_fields = ('nickname', 'email',)
     list_display = ('nickname', 'email', 'first_name', 'is_staff')
-    ordering = ('nickname', 'email', 'date_joined')
+    ordering = ('nickname',)
     fieldsets = (
-        (None, {'fields': ('nickname', 'email', 'password')}),
-        ("Personal information", {'fields': ('first_name', 'last_name', 'birthdate')}),
+        (None, {'fields': ('username', 'nickname', 'password')}),
+        ("Personal information", {'fields': ('first_name', 'last_name')}),
         ("Permissions", {'fields': ('is_active', 'is_staff', 'is_superuser',)}),
         ("Activity", {'fields': ('last_login', 'date_joined')}),
     )
