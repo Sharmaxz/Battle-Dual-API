@@ -29,7 +29,7 @@ class User(AbstractUser):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    birthdate = models.DateTimeField(blank=True)
+    birthdate = models.DateField()
 
     # admin
     is_active = models.BooleanField(default=True)

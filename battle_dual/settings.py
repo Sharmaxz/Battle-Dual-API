@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'account',
+    'creation',
+    'games.hash',
 ]
 
 MIDDLEWARE = [
