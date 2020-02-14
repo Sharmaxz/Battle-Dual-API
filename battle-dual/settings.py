@@ -69,7 +69,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-ROOT_URLCONF = 'battle_dual.urls'
+ROOT_URLCONF = 'battle-dual.urls'
 
 TEMPLATES = [
     {
@@ -104,7 +104,7 @@ AUTHENTICATION_BACKENDS = (
     'oauth2_provider.backends.OAuth2Backend',
 )
 
-WSGI_APPLICATION = 'battle_dual.wsgi.application'
+WSGI_APPLICATION = 'battle-dual.wsgi.application'
 
 
 # Database

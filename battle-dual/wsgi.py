@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'battle_dual.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'battle-dual.settings')
 
 application = get_wsgi_application()
