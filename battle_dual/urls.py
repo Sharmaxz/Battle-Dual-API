@@ -29,4 +29,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include((router.urls, 'api'), namespace='api'), name='api-root'),
     path('api-token-auth/', views.obtain_auth_token),
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

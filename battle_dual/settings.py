@@ -35,7 +35,8 @@ ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 AUTH_USER_MODEL = 'account.User'
 
 ORS_ORIGIN_ALLOW_ALL = True  # TODO: Restrict this.
-CORS_ORIGIN_WHITELIST = ['http://localhost:8000', 'https://localhost:8000']
+CORS_ALLOW_CREDENTIALS = True
+#CORS_ORIGIN_WHITELIST = ['*']  #['http://localhost:8000', 'https://localhost:8000']
 
 
 # Application definition
