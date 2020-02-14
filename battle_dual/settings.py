@@ -14,7 +14,7 @@ import os
 import environ
 
 # set default values and casting
-env = environ.Env(ALLOWED_HOSTS=(tuple, ['batte-dual.herokuapp.com']), DEBUG=(bool, False),)
+env = environ.Env(DEBUG=(bool, False),)
 env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -93,7 +93,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework.authentication.SessionAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 
 AUTHENTICATION_BACKENDS = (
