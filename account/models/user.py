@@ -5,14 +5,14 @@ from django.db import models
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, nickname, email, password, **extra_fields):
+    def _create_user(self, nickname, email, password, birthdate, **extra_fields):
         email = self.normalize_email(email)
-        user = self.model(username=nickname, nickname=nickname, email=email, **extra_fields)
+        user = self.model(username=nickname, nickname=nickname, email=email, birthdate=birthdate **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, nickname, email, password, **extra_fields):
+    def create_superuser(self, nickname, email, password, birthdate, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -21,7 +21,7 @@ class UserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(nickname, email, password, **extra_fields)
+        return self._create_user(nickname, email, password, birthdate, **extra_fields)
 
 
 class User(AbstractUser):
@@ -29,7 +29,7 @@ class User(AbstractUser):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    birthdate = models.DateField()
+    birthdate = models.DateField(default="2000-01-01")
 
     # admin
     is_active = models.BooleanField(default=True)
