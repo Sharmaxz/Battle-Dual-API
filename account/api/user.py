@@ -42,3 +42,17 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class SignUpSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
+class SignUpViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = SignUpSerializer
+    http_method_names = ['post']
+
+    def create(self, validated_data):
+        return User.objects.create(**validated_data)
