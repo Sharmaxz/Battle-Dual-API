@@ -19,11 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken import views
 
-
 from account.api import AccountHybridRouter
+from creation.api import CreationHybridRouter
 from contrib.router import HybridRouter
+
 router = HybridRouter()
 router.register_router(AccountHybridRouter)
+router.register_router(CreationHybridRouter)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
