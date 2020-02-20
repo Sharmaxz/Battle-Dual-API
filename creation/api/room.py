@@ -6,7 +6,6 @@ from ..models import Room
 
 
 class RoomSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Room
 

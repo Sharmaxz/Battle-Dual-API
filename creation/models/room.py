@@ -7,7 +7,7 @@ TYPE = (
     ('4', '2x2'),
 )
 
-LIMIT = models.Q(app_label='Games')
+LIMIT = models.Q(app_label='hash', model='hash')
 
 
 class Room(models.Model):
@@ -24,3 +24,6 @@ class Room(models.Model):
     class Meta:
         verbose_name = "Sala"
         verbose_name_plural = "Salas"
+
+    def __str__(self):
+        return self.name

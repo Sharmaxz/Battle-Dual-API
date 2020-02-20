@@ -1,6 +1,6 @@
 from rest_framework import serializers, viewsets, status
 from rest_framework.filters import SearchFilter
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from ..models import User
@@ -19,6 +19,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     filter_backends = [SearchFilter]
+    http_method_names = ['get', 'delete', 'put', 'patch']
     search_fields = ['nickname']
     permission_classes = (IsAuthenticated,)
 
@@ -46,12 +47,28 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('nickname', 'email', 'password', 'first_name', 'last_name', 'birthdate')
 
 
-class SignUpViewSet(viewsets.ReadOnlyModelViewSet):
+class SignUpViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
     serializer_class = SignUpSerializer
+    filter_backends = ()
     http_method_names = ['post']
+    permission_classes = (AllowAny,)
 
-    def create(self, validated_data):
-        return User.objects.create(**validated_data)
+    def create(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            User.objects._create_user(
+                nickname=request.data['nickname'],
+                email=request.data['email'],
+                first_name=request.data['first_name'],
+                last_name=request.data['last_name'],
+                password=request.data['password'],
+                birthdate=request.data['birthdate'],
+            )
+        else:
+            return Response(serializer._errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(status=status.HTTP_201_CREATED)

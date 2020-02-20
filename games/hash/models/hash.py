@@ -5,8 +5,8 @@ from matrix_field import MatrixField
 class Hash(models.Model):
     name = 'Hash'
     turn = models.ForeignKey('account.User', on_delete=models.CASCADE)
-    turn_count = models.PositiveIntegerField()
-    matrix = MatrixField(datatype='int', dimensions=(3, 3))
+    turn_count = models.PositiveIntegerField(default=0)
+    matrix = MatrixField(datatype='int', dimensions=(3, 3), default=[[-1, -1, -1], [-1, -1, -1], [-1, -1, -1]])
     is_end = models.BooleanField()
 
     class Meta:

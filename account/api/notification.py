@@ -10,7 +10,7 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
 
 
-class NotificationViewSet(viewsets.ReadOnlyModelViewSet):
+class NotificationViewSet(viewsets.ModelViewSet):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
 
