@@ -57,7 +57,7 @@ class SignUpViewSet(viewsets.ModelViewSet):
     http_method_names = ['post']
     permission_classes = (AllowAny,)
 
-    def create(self, request):
+    def create(self, request, **kwargs):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             User.objects._create_user(
@@ -71,4 +71,4 @@ class SignUpViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer._errors, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
