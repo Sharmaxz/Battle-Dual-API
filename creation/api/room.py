@@ -26,7 +26,6 @@ class RoomViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = RoomSerializer(queryset, many=True)
         return Response(serializer.data)
 
-
     def update(self, request, pk, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
