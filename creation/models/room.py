@@ -14,9 +14,9 @@ class Room(models.Model):
     name = models.CharField(max_length=35)
     owner = models.ForeignKey('account.User', on_delete=models.CASCADE, related_name="owner")
     type = models.CharField(choices=TYPE, max_length=3)
-    content_type = models.ForeignKey(ContentType, limit_choices_to=LIMIT, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    game = GenericForeignKey('content_type', 'object_id')
+    game_type = models.ForeignKey(ContentType, limit_choices_to=LIMIT, on_delete=models.CASCADE)
+    game_id = models.PositiveIntegerField()
+    game = GenericForeignKey('game_type', 'game_id')
 
     player_one = models.ForeignKey('account.User', null=True, blank=True, on_delete=models.SET_NULL, related_name="player_one")
     player_two = models.ForeignKey('account.User', null=True, blank=True, on_delete=models.SET_NULL, related_name="player_two")

@@ -2,35 +2,27 @@ from rest_framework import serializers, viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
-from django.contrib.contenttypes.models import ContentType
 
-from games.hash.models import Hash
-from ..models import Room
+from ..models import Hash
 
 
-class RoomSerializer(serializers.ModelSerializer):
+class HashSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Room
+        model = Hash
         fields = '__all__'
 
 
-class RoomViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Room.objects.all()
-    serializer_class = RoomSerializer
+class HashViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Hash.objects.all()
+    serializer_class = HashSerializer
     filter_backends = [SearchFilter]
-    search_fields = ['name', 'owner', 'player_one', 'player_two']
+    search_fields = ['turn', 'player_one', 'player_two']
     permission_classes = (IsAuthenticated,)
-
-    def list(self, request):
-        queryset = Room.objects.all()
-        serializer = RoomSerializer(queryset, many=True)
-        return Response(serializer.data)
-
 
     def update(self, request, pk, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        serializer = RoomSerializer(instance, data=request.data, partial=partial)
+        serializer = HashSerializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -40,9 +32,9 @@ class RoomViewSet(viewsets.ReadOnlyModelViewSet):
         return self.update(request, *args, **kwargs)
 
     def destroy(self, pk):
-        room = Room.objects.filter(id=pk)
-        if room:
-            room.delete()
+        hash = Hash.objects.filter(id=pk)
+        if hash:
+            hash.delete()
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)

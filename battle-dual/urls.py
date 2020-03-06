@@ -21,11 +21,13 @@ from rest_framework.authtoken import views
 
 from account.api import AccountHybridRouter
 from creation.api import CreationHybridRouter
+from games.hash.api import HashHybridRouter
 from contrib.router import HybridRouter
 
 router = HybridRouter()
 router.register_router(AccountHybridRouter)
 router.register_router(CreationHybridRouter)
+router.register_router(HashHybridRouter)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
