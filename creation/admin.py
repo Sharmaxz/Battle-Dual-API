@@ -4,7 +4,7 @@ from creation.models import Room
 
 
 class RoomAdmin(admin.ModelAdmin):
-    list_display = ('owner', 'name', 'game', 'type')
+    list_display = ('name', 'game', 'type', 'owner', 'turn')
 
 
 admin.site.register(Room, RoomAdmin)

@@ -2,6 +2,7 @@ from rest_framework import serializers, viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
+from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 
 from games.hash.models import Hash
@@ -22,7 +23,7 @@ class RoomViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsAuthenticated,)
 
     def list(self, request):
-        queryset = Room.objects.all()
+        queryset = Room.objects.filter(Q(player_one=self.request.user) | Q(player_two=self.request.user))
         serializer = RoomSerializer(queryset, many=True)
         return Response(serializer.data)
 
