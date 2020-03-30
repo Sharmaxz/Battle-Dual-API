@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 
+from creation.models import Room
 from ..models import Hash
 
 
@@ -22,9 +23,15 @@ class HashViewSet(viewsets.ReadOnlyModelViewSet):
     def update(self, request, pk, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
+
         serializer = HashSerializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
+        room = Room.objects.get(game_id=instance.id)
+        room .is_end = serializer.data['is_end']
+        room.save()
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def partial_update(self, request, *args, **kwargs):

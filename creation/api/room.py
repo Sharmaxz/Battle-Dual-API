@@ -3,7 +3,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from django.db.models import Q
-from django.contrib.contenttypes.models import ContentType
 
 from games.hash.models import Hash
 from ..models import Room
