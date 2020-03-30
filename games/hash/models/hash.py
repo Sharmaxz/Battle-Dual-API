@@ -11,6 +11,7 @@ class Hash(models.Model):
     turn_count = models.PositiveIntegerField(default=0)
     matrix = MatrixField(datatype='int', dimensions=(3, 3), default=[[-1, -1, -1],[-1, -1, -1],[-1, -1, -1]])
     is_end = models.BooleanField()
+    is_draw = models.BooleanField(null=True)
 
     class Meta:
         verbose_name = "Jogo da Velha"
