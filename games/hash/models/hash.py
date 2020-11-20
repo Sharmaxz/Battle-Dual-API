@@ -2,6 +2,7 @@ from matrix_field import MatrixField
 from django.db import models
 
 from account.models.user import User
+import re
 
 
 class Hash(models.Model):
@@ -9,7 +10,7 @@ class Hash(models.Model):
     turn = models.ForeignKey('account.User', on_delete=models.CASCADE)
     turn_label = models.CharField(max_length=255, null=True, blank=True)
     turn_count = models.PositiveIntegerField(default=0)
-    matrix = MatrixField(datatype='int', dimensions=(3, 3), default=[[-1, -1, -1],[-1, -1, -1],[-1, -1, -1]])
+    matrix = MatrixField(datatype='int', dimensions=(3, 3), default=[[-1, -1, -1], [-1, -1, -1], [-1, -1, -1]])
     is_end = models.BooleanField()
     is_draw = models.BooleanField(null=True)
 
@@ -21,3 +22,12 @@ class Hash(models.Model):
         self.turn_label = User.objects.get(pk=self.turn.id).nickname
 
         super(Hash, self).save(*args, **kwargs)
+
+    def matrix_as_list(self):
+        matrix = self.matrix.split(',')
+        for m in matrix:
+            filter = re.sub(r'\[', '', m)
+            filter = re.sub(r'\]', '', filter)
+            matrix[matrix.index(m)] = filter.replace(' ', '')
+        print(matrix)
+        return matrix

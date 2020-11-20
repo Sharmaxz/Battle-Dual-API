@@ -1,0 +1,99 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_list %}
+
+
+{% block title %} Partidas | Battle Dual {% endblock %}
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}"> Partidas </a></h1>
+{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/base.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">
+  <style>
+    #main {
+       background: rgb(174,45,182);
+       background: linear-gradient(45deg, rgba(174,45,182,1) 0%, rgba(9,9,121,1) 100%);
+    }
+
+    #content {
+       display: flex;
+    }
+
+    .match {
+       color: white;
+       display: grid;
+       font-size: 48px;
+       grid-template-columns: 60px 60px 60px;
+       margin: auto;
+       text-align:center
+    }
+
+    .match div:nth-child(1) {
+        border-bottom: 5px solid white;
+        border-right: 5px solid white;
+    }
+
+    .match div:nth-child(2) {
+        border-bottom: 5px solid white;
+    }
+
+    .match div:nth-child(3) {
+        border-bottom: 5px solid white;
+        border-left: 5px solid white;
+    }
+
+    .match div:nth-child(4) {
+        border-bottom: 5px solid white;
+        border-right: 5px solid white;
+    }
+
+    .match div:nth-child(5) {
+        border-bottom: 5px solid white;
+    }
+
+    .match div:nth-child(6) {
+        border-bottom: 5px solid white;
+        border-left: 5px solid white;
+    }
+
+    .match div:nth-child(7) {
+        border-right: 5px solid white;
+    }
+
+    .match div:nth-child(8) {
+    }
+
+      .match div:nth-child(9) {
+        border-left: 5px solid white;
+    }
+
+
+
+  </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo;
+<a href="{% url 'status:index' %}">Status da Partidas </a>
+<a href="{% url 'status:status_progress' %}">Partidas em Andamento </a>
+&rsaquo; Partida
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class="match">
+        {% for i in hash.matrix_as_list %}
+            {% if i == '1' %}
+                <div>X</div>
+            {% elif i == '0' %}
+                 <div>O</div>
+            {% else %}
+               <div>&emsp;</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

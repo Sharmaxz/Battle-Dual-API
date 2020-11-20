@@ -1,0 +1,34 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+certifi = "*"
+chardet = "*"
+Django = "*"
+django-admin-sortable ="*"
+django-cors-headers = "*"
+django-environ = "*"
+django-filter = "*"
+django-modeladmin-reorder ="*"
+django-oauth-toolkit = "*"
+django-storages = "*"
+djangorestframework = "*"
+gunicorn = "*"
+idna = "*"
+oauthlib = "*"
+psycopg2-binary = "*"
+pyasn1-modules = "*"
+pytz = "*"
+requests = "*"
+sqlparse = "*"
+urllib3 = "*"
+whitenoise = "*"
+django-hybrid-router = {editable = true, git = "https://bitbucket.org/hub9/django-hybrid-router.git"}
+django-matrix-field = {editable = true, git = "https://github.com/Sharmaxz/django-matrix-field.git"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

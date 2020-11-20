@@ -36,7 +36,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=255)
     birthdate = models.DateField(default="2000-01-01")
 
-    # admin
+    # templates
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
